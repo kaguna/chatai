@@ -2,7 +2,7 @@ require "ollama-ai"
 
 class AiService
   OLLAMA_ADDRESS = "http://localhost:11434"
-  DEFAULT_MODEL = "llama3:latest"
+  DEFAULT_MODEL = "tinyllama:latest"
 
   attr_reader :conversation, :model, :client
 
