@@ -36,6 +36,8 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+    - POSTGRES_USER
   clear:
     RAILS_ENV: production
     RACK_ENV: production
@@ -52,8 +54,8 @@ env:
     # WEB_CONCURRENCY: 2
 
     # Match this to any external database server to configure Active Record correctly
-    # Use chauffix-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: 128.140.63.71
+    # Use chatai-db for a db accessory server on same machine via local kamal docker network.
+    DB_HOST: chatai-db
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
@@ -101,13 +103,13 @@ accessories:
   db:
     image: postgres:17.0
     host: 128.140.63.71
-    port: "5432:5432"
+    port: "127.0.0.1:5433:5433"
     env:
       clear:
         POSTGRES_DB: chatai_production
-        POSTGRES_USER: chatai
       secret:
         - POSTGRES_PASSWORD
+        - POSTGRES_USER
     files:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
