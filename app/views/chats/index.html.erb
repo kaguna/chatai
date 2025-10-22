@@ -1,0 +1,13 @@
+<%= turbo_stream_from "conversations" %>
+
+<div class="chat-container max-w-4xl mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-lg">
+    <h1 class="text-xl font-bold">Conversations</h1>
+    <div id="conversations">
+      <% @conversations.each do |conversation| %>
+        <%= render partial: "conversations/conversation", locals: { conversation: conversation } %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

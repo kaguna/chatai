@@ -1,0 +1,14 @@
+<%= simple_format(message.content) %>
+<script>
+  // Dispatch message-updated event for auto-scroll handling
+  (function() {
+    const messagesContainer = document.getElementById('messages');
+    if (messagesContainer) {
+      const event = new CustomEvent('message-updated', { 
+        detail: { messageId: '<%= message.id %>' },
+        bubbles: true 
+      });
+      messagesContainer.dispatchEvent(event);
+    }
+  })();
+</script>

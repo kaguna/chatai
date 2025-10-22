@@ -1,0 +1,19 @@
+<%= turbo_stream.prepend "messages" do %>
+  <%= render partial: "messages/message", locals: { message: @message } %>
+<% end %>
+
+<%= turbo_stream.replace "message_form" do %>
+  <%= form_with model: [@conversation, Message.new], 
+                url: chat_stream_path(@conversation), 
+                method: :post,
+                local: false,
+                data: { turbo_stream: true },
+                class: "flex space-x-2" do |form| %>
+    <%= form.text_field :message, 
+                        placeholder: "Type your message...Jimmy", 
+                        class: "flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        required: true %>
+    <%= form.submit "Send", 
+                    class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  <% end %>
+<% end %>

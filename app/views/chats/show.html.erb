@@ -1,0 +1,42 @@
+<%= turbo_stream_from "conversation_#{@conversation.id}" %>
+
+<div class="chat-container max-w-4xl mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-lg">
+    <!-- Chat Header -->
+    <div class="flex justify-center bg-blue-600 text-white p-4 rounded-t-lg">
+      <h1 class="text-xl font-bold"><%= @conversation.title %></h1>
+      <p class="text-blue-100 text-sm">Session: <%= @conversation.session_id %></p>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="messages" class="h-96 overflow-y-auto p-4 space-y-4">
+      <% @messages.each do |message| %>
+        <%= render partial: "messages/message", locals: { message: message } %>
+      <% end %>
+    </div>
+
+    <!-- Message Form -->
+    <div class="border-t p-4">
+      <div id="message_form">
+        <%= form_with model: [@conversation, Message.new], 
+                      url: send_message_conversation_path(@conversation), 
+                      method: :post,
+                      local: false,
+                      data: { turbo_stream: true },
+                      class: "flex space-x-2",
+                      do |form| %>
+          <%= form.text_field :message, 
+                              placeholder: "Type your message...kaguna", 
+                              class: "flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+                              required: true,
+                              id: "message_input" %>
+          <%= form.submit "Send", 
+                          class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Error Container -->
+    <div id="error"></div>
+  </div>
+</div>
