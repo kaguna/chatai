@@ -82,8 +82,9 @@ production:
   primary: &primary_production
     <<: *default
     database: chatai_production
+    port: 5432
     username: chatai
-    password: <%= ENV["CHATAI_DATABASE_PASSWORD"] %>
+    password: <%= ENV.fetch("CHATAI_DATABASE_PASSWORD", Rails.application.credentials.dig(:database, :password)) %>
   cache:
     <<: *primary_production
     database: chatai_production_cache

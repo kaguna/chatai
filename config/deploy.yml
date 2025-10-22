@@ -105,6 +105,9 @@ accessories:
     env:
       clear:
         POSTGRES_DB: chatai_production
+        POSTGRES_USER: chatai
+      secret:
+        - POSTGRES_PASSWORD
     files:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
